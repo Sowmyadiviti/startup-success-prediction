@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startup Success Prediction</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea, #31d9a4);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 12px;
+      width: 620px;
+      box-shadow: 0 10px 25px rgba(251, 30, 30, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #666;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #444;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 14px;
+      border-radius: 6px;
+      border: 1px solid #0f7d7a;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #667eea;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      background: #9a48b5;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .hint {
+  display: block;
+  font-size: 11px;
+  color: #64748b;
+  margin-top: -1px;
+  margin-bottom: 8px;
+}
+
+    .btn:hover {
+      background: #6c78df;
+    }
+
+    .result {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Startup Success Prediction</h1>
+    <h2>Enter startup details</h2>
+
+    <form action="{{ url_for('predict') }}" method="post">
+
+      <label>Startup age at first funding (years)</label>
+      <small class="hint">Years between founding and first funding</small>
+      <input type="number" step="any" min="0" name="age_first_funding_year"
+             placeholder="e.g., 2" required />
+
+      <label>Startup age at latest funding (years)</label>
+      <small class="hint">Years between founding and most recent funding</small>
+      <input type="number" step="any" min="0" name="age_last_funding_year"
+             placeholder="e.g., 5" required />
+
+      <label>Startup age at first milestone (years)</label>
+      <small class="hint">When the first major milestone was achieved</small>
+      <input type="number" step="any" min="0" name="age_first_milestone_year"
+             placeholder="e.g., 1" required />
+
+      <label>Startup age at latest milestone (years)</label>
+      <small class="hint">Most recent milestone achievement</small>
+      <input type="number" step="any" min="0" name="age_last_milestone_year"
+             placeholder="e.g., 4" required />
+
+      <label>Business partnerships count</label>
+      <small class="hint">Total number of strategic relationships</small>
+      <input type="number" step="any" min="0" name="relationships"
+             placeholder="e.g., 10" required />
+
+      <label>Total funding rounds</label>
+      <small class="hint">How many times the startup raised funds</small>
+      <input type="number" step="any" min="0" name="funding_rounds"
+             placeholder="e.g., 3" required />
+
+      <label>Total funding raised (USD)</label>
+      <small class="hint">Enter total investment received</small>
+      <input type="number" step="any" min="0" name="funding_total_usd"
+             placeholder="e.g., 5000000" required />
+
+      <label>Milestones achieved</label>
+      <small class="hint">Number of key product/business milestones</small>
+      <input type="number" step="any" min="0" name="milestones"
+             placeholder="e.g., 4" required />
+
+      <label>Average investors per round</label>
+      <small class="hint">Average participants in each funding round</small>
+      <input type="number" step="any" min="0" name="avg_participants"
+             placeholder="e.g., 5" required />
+
+      <button class="btn" type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+</body>
+
+</html>
